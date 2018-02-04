@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      series: []
+    };
+
+  }
+
+  componentDidMount() {
+    this.getStocks();
+  }
+
   render() {
     return (
       <div className="App">
@@ -15,6 +28,19 @@ class App extends Component {
         </p>
       </div>
     );
+  }
+
+  getStocks() {
+    axios.get('https://www.highcharts.com/samples/data/GOOG-c.json?origin=*', {
+
+    })
+    .then((data) => {
+      const series = {
+          name: 'GOOG',
+          data: data
+      };
+      this.setState({ series: series });
+    })
   }
 }
 
