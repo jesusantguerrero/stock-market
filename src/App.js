@@ -1,31 +1,25 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import axios from 'axios';
+import TestResponse from './components/TestResponse';
+import ChartView from './components/ChartView';
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      series: []
+      series: [
+        { name: 'TEST', data: TestResponse }
+      ]
     };
-
-  }
-
-  componentDidMount() {
-    this.getStocks();
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1> Stock Market </h1>
+        <ChartView series={this.state.series} id="chart-container"/>
       </div>
     );
   }

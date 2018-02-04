@@ -1,4 +1,4 @@
-import Highcharts from 'highcharts';
+import Highcharts from 'highcharts/highstock';
 
 export default class StockChart {
   constructor(divClass, series, config) {
