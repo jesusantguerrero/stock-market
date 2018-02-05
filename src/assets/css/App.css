@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+  width: 100%;
+  padding: 0 20px;
+  color: #444;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}

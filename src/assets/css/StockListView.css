@@ -1,0 +1,44 @@
+.stock-list-view {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stock-item {
+  padding: 2px 5%;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, .4);
+  cursor: pointer; 
+  position: relative;
+  width: 33%;
+}
+
+.stock-title {
+  color: #444;
+}
+
+.stock-btn-delete {
+  background: #333;
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  height: 25px;
+  width: 25px;
+  position: absolute;
+  right: -10px;
+  top: 2px;
+  transition: all ease .3s;
+  cursor: pointer;
+  visibility: hidden;
+
+}
+.stock-item:hover .stock-btn-delete {
+  visibility: visible;
+}
+
+.stock-btn-delete:hover {
+  background: rgb(48, 208, 48);
+  color: white;
+  transform: scale(1.01);
+}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './assets/img/logo.svg';
 import axios from 'axios';
 import TestResponse from './components/TestResponse';
 import ChartView from './components/ChartView';
-import './App.css';
+import StockListView from './components/StockListView';
+import './assets/css/App.css';
 
 class App extends Component {
   constructor(props){
@@ -20,6 +21,7 @@ class App extends Component {
       <div className="App">
         <h1> Stock Market </h1>
         <ChartView series={this.state.series} id="chart-container"/>
+        <StockListView stocks={[1, 2]}/>
       </div>
     );
   }

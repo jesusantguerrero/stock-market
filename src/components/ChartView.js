@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StockChart from './StockChart';
+import './../assets/css/App.css';
 
 export default class ChartView extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class ChartView extends Component {
 
   render() {
     return(
-      <div id={this.props.id}>
+      <div id={this.props.id} className="chart-container">
       </div>
     )
   }
