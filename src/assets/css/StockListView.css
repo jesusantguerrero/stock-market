@@ -1,18 +1,20 @@
 .stock-list-view {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .stock-item {
   padding: 2px 5%;
-  margin: 0 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, .4);
   cursor: pointer; 
   position: relative;
-  width: 33%;
+  width: 32%;
+  margin: 0 1%;
 }
+
 
 .stock-title {
   color: #444;
@@ -33,6 +35,7 @@
   visibility: hidden;
 
 }
+
 .stock-item:hover .stock-btn-delete {
   visibility: visible;
 }
@@ -41,4 +44,29 @@
   background: rgb(48, 208, 48);
   color: white;
   transform: scale(1.01);
+}
+
+.btn-add-stock {
+  background: rgb(48, 208, 48);
+  color: white;
+  font-size: 90px;
+}
+
+.btn-add-stock:hover {
+  background: rgb(9, 160, 9);
+}
+
+@media (max-width: 768px) {
+  .stock-list-view {
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  .stock-btn-delete {
+    visibility: visible;
+  }
+
+  .stock-item {
+    width: 100%;
+    margin: 5px 0;
+  }
 }

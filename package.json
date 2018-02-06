@@ -10,7 +10,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "serve": "node_modules/.bin/serve -s build",
-    "postinstall": "npm run build",
+    "heroku-postinstall": "npm run build",
     "heroku": "git push heroku master && heroku scale web=1 && heroku open && heroku logs --tail"
   },
   "dependencies": {
@@ -20,15 +20,18 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "highcharts": "^6.0.5",
+    "mongoose": "^5.0.3",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "2.0.4"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0"
+    "dotenv": "^5.0.0"
   },
   "proxy": "http://localhost:5000/"
 }

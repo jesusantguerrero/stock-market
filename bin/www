@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+const socketIO = require('socket.io');
 var app = require('../app');
 var debug = require('debug')('stock-market:server');
 var http = require('http');
@@ -25,9 +25,20 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+const socketServer = server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// listen socket
+const io = socketIO();
+io.on('connection', (client) => {
+  console.log('client connected')
+  client.on('stock stock', () => {
+    client.emit('stock changed');
+  })
+})
+
+io.listen(socketServer)
 
 /**
  * Normalize a port into a number, string, or false.
