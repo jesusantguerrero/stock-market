@@ -16,7 +16,7 @@ export default class StockListView extends Component {
         <div className="stock-item">
           <h1 className="stock-title"> Example </h1>
           <p className="stock-description"> Yahoo! Inc. (YHOO) Prices, Dividends, Splits and Trading Volume </p>
-          <button className="stock-btn-delete"> x </button>
+          <button id={item} className="stock-btn-delete" onClick={this.props.onDelete}> x </button>
         </div>
       )
     })

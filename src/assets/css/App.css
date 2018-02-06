@@ -8,6 +8,9 @@
   padding: 0 20px;
   color: #444;
 }
+.header {
+
+}
 
 .App-title {
   font-size: 1.5em;
@@ -15,4 +18,20 @@
 
 .App-intro {
   font-size: large;
+}
+
+.app-main-section{ 
+  width: 100%;
+  display: flex;
+}
+
+.app-left-container {
+  width: 70%;
+}
+
+.app-right-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -4,41 +4,40 @@
  * Module dependencies.
  */
 const socketIO = require('socket.io');
-var app = require('../app');
-var debug = require('debug')('stock-market:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('stock-market:server');
+const http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '5000');
+const port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-const socketServer = server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+server.listen(port);
+// server.on('error', onError);
+// server.on('listening', onListening);
 
 // listen socket
-const io = socketIO();
-io.on('connection', (client) => {
+const io = socketIO.listen(server);
+io.sockets.on('connection', (client) => {
   console.log('client connected')
-  client.on('stock stock', () => {
+  client.on('stock change', () => {
+    console.log('stock changed');
     client.emit('stock changed');
   })
 })
-
-io.listen(socketServer)
 
 /**
  * Normalize a port into a number, string, or false.
@@ -61,7 +60,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listeners for HTTP server.
  */
 
 function onError(error) {
@@ -87,10 +86,6 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening() {
   var addr = server.address();

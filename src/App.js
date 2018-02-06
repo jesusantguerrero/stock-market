@@ -5,8 +5,8 @@ import TestResponse from './components/TestResponse';
 import ChartView from './components/ChartView';
 import StockListView from './components/StockListView';
 import StockAddForm from './components/StockAddForm';
+import Socket from './components/Socket';
 import './assets/css/App.css';
-import io from 'socket.io-client';
 
 class App extends Component {
   constructor(props){
@@ -18,25 +18,50 @@ class App extends Component {
       NewStockValue: '',
     };
   }
+
   _addStock = (e) => {
     alert(this.state.NewStockValue);
-    const socket = io();
-    socket.emit('stock change', this.state.NewStockValue);
     this.setState({ NewStockValue: '' });
+    this.socket.stockChange()
     e.preventDefault();
   }
 
+  _deleteStock = (e) => {
+    alert(e.target.id)
+    this.socket.stockChange();
+  }
+
+  _getStocks = () => {
+    axios.get('/stocks')
+      .then((stocks) => {
+        this.setState({ stocks: stocks });
+      })
+  }
+  
   _handleInputChange = (e) => {
     this.setState({ NewStockValue: e.target.value });
+  }
+  
+  componentDidMount() {
+    this.socket = new Socket();
+    this.socket.onStockChange(this._getStocks);
   }
 
   render() {
     return (
       <div className="App">
-        <h1> Stock Market </h1>
-        <StockAddForm onClick={this._addStock} onChange={this._handleInputChange} value={this.state.NewStockValue}/>
-        <ChartView series={this.state.series} id="chart-container"/>
-        <StockListView stocks={[1, 2]}/>
+        <header>
+          <h1> Stock Market </h1>
+        </header>
+        <section className="app-main-section">
+          <div className="app-left-container">
+            <ChartView series={this.state.series} id="chart-container"/>
+          </div>
+          <div className="app-right-container">
+            <StockAddForm onClick={this._addStock} onChange={this._handleInputChange} value={this.state.NewStockValue}/>
+            <StockListView stocks={[1, 2]} onDelete={this._deleteStock}/>
+          </div>
+        </section>
       </div>
     );
   }

@@ -1,7 +1,8 @@
 .stock-list-view {
-  display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .stock-item {
@@ -11,8 +12,8 @@
   box-shadow: 2px 3px 5px rgba(0, 0, 0, .4);
   cursor: pointer; 
   position: relative;
-  width: 32%;
-  margin: 0 1%;
+  width: 100%;
+  margin: 5px 0;
 }
 
 
