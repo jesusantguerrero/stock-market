@@ -2,19 +2,20 @@ const mongoose = require('mongoose');
 
 class Stock {
   constructor() {
-    this.model = new mongoose.model('stock', mongoose.Schema({
+    this.model = mongoose.model('stock', new mongoose.Schema({
       name: String
-    }))
+    }));
   }
 
-
   findOrCreate(stockName) {
-    this.model.findOne({ name: stockName}).then((stock) => {
-      if (!stock) {
-        return this.create(stockName);
-      }
-      return stock;
-    })
+    return this.model.findOne({ name: stockName })
+      .then((stock) => {
+        console.log(stock)
+        if (!stock) {
+          return this.create(stockName);
+        } 
+        return stock;
+      })
   }
 
   create(stockName) {
