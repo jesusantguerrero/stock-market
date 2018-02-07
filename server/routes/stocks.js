@@ -5,21 +5,13 @@ const stockApi = new StockApi();
 const Stocks = require('./../models/stocks');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   const stocksResponse = [];
-  Stocks.model.find((symbols) => {
-    if (symbols) {
-      symbols.forEach((stock) => {
-        stockApi.getInfo(stock.name).then((data) => {
-          stocksResponse.push({
-            name: stock.name,
-            data: data
-          })
-        })
-      })
-      res.json(stocksResponse);
-    }
-  })
+
+  Stocks.model.find()
+    .then((stockList) => {
+      res.json(stockList);
+    })
 });
 
 router.get('/:symbol_name', (req, res) => {
@@ -31,7 +23,7 @@ router.get('/:symbol_name', (req, res) => {
           .then((stock) => {
             res.json({
               name: symbolName,
-              data: response.data
+              data: stockApi.parseOne(response.data)
             });
           })
           .catch((err) => {
