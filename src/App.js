@@ -11,10 +11,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      series: [
-        { name: 'TEST', data: TestResponse }
-      ],
-      stocks: ['TEST'],
+      series: [],
+      stocks: [],
       NewStockValue: '',
       chart: null
     };

@@ -27,6 +27,7 @@ router.get('/:symbol_name', (req, res) => {
             });
           })
           .catch((err) => {
+            console.log(err);
             res.json({err: 'error'});
           })
       } else {
