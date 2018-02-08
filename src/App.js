@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './assets/img/logo.svg';
 import axios from 'axios';
 import TestResponse from './components/TestResponse';
 import ChartView from './components/ChartView';
@@ -15,15 +14,32 @@ class App extends Component {
       series: [
         { name: 'TEST', data: TestResponse }
       ],
+      stocks: ['TEST'],
       NewStockValue: '',
+      chart: null
     };
   }
 
   _addStock = (e) => {
-    alert(this.state.NewStockValue);
-    this.setState({ NewStockValue: '' });
-    this.socket.stockChange()
     e.preventDefault();
+    if (this.state.NewStockValue && !this.state.stocks.includes(this.state.NewStockValue)) {
+      axios.get(`/stocks/${this.state.NewStockValue}`)
+        .then((res) => {
+          if (!res.data.err) {
+            const series = this.state.series.slice();
+            const stocks = this.state.stocks.slice()
+            stocks.push(res.data.name);
+            series.push(res.data)
+            this.setState({ series: series });
+            this.setState({ stocks: stocks });
+            this.state.chart.add(res.data);
+            this.socket.stockChange(res.data);
+          } else {
+            alert('this symbol doesnt exists');
+          }
+          this.setState({ NewStockValue: '' });
+        })
+    }
   }
 
   _deleteStock = (e) => {
@@ -33,18 +49,29 @@ class App extends Component {
 
   _getStocks = () => {
     axios.get('/stocks')
-      .then((stocks) => {
-        this.setState({ stocks: stocks });
+      .then((res) => {
+        // this.setState({ stocks: res.data.map(stock => stock.name)});
       })
   }
+
+  _stockChangeServer = (serie) => {
+    if (!this.state.stocks.includes(serie.name)) {
+      alert('remote update');
+      this.setState({ series: this.state.series.push(serie)});
+    }
+  } 
   
   _handleInputChange = (e) => {
     this.setState({ NewStockValue: e.target.value });
   }
+
+  _getChart = (chart) => {
+    this.setState({ chart: chart });
+  }
   
   componentDidMount() {
     this.socket = new Socket();
-    this.socket.onStockChange(this._getStocks);
+    // this.socket.onStockChange(this._stockChangeServer);
   }
 
   render() {
@@ -55,28 +82,15 @@ class App extends Component {
         </header>
         <section className="app-main-section">
           <div className="app-left-container">
-            <ChartView series={this.state.series} id="chart-container"/>
+            <ChartView series={this.state.series} id="chart-container" getChart={this._getChart}/>
           </div>
           <div className="app-right-container">
             <StockAddForm onClick={this._addStock} onChange={this._handleInputChange} value={this.state.NewStockValue}/>
-            <StockListView stocks={[1, 2]} onDelete={this._deleteStock}/>
+            <StockListView stocks={this.state.stocks} onDelete={this._deleteStock}/>
           </div>
         </section>
       </div>
     );
-  }
-
-  getStocks() {
-    axios.get('https://www.highcharts.com/samples/data/GOOG-c.json?origin=*', {
-
-    })
-    .then((data) => {
-      const series = {
-          name: 'GOOG',
-          data: data
-      };
-      this.setState({ series: series });
-    })
   }
 }
 

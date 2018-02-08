@@ -3,13 +3,6 @@ import StockChart from './StockChart';
 import './../assets/css/App.css';
 
 export default class ChartView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chart: null
-    }
-  }
-
   componentDidMount(){
     this.chart();
   }
@@ -23,6 +16,6 @@ export default class ChartView extends Component {
 
   chart() {
     const chart = new StockChart(this.props.id, this.props.series, {});
-    this.setState({ chart: chart });
+    this.props.getChart(chart)
   }
 }

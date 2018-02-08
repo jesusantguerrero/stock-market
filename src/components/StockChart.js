@@ -2,7 +2,17 @@ import Highcharts from 'highcharts/highstock';
 
 export default class StockChart {
   constructor(divClass, series, config) {
+    
+    this.divClass = divClass;
+    this.series = series;
+    this.config = config;
+    this.chart = null;
+    this.create()
+  }
+
+  create() {
     const theConfig = {
+
       rangeSelector: {
         selected: 4
       },
@@ -33,15 +43,21 @@ export default class StockChart {
         split: true
       },
 
-      series: series
+      series: this.series
     }
-    
-    this.chart = Highcharts.stockChart(divClass, theConfig)
+
+    this.chart = Highcharts.stockChart(this.divClass, theConfig)
   }
 
-  update(labels, data) {
-    this.chart.data.labels = labels;
-    this.chart.data.datasets[0].data = data;
-    this.chart.update();
+  add(serie) {
+    try {
+      this.chart.addSeries(serie);
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  remove(data) {
+
   }
 }

@@ -11,6 +11,6 @@ export default class Socket {
   }
 
   onStockChange(callback) {
-    this.socket.on('stock changed', callback)
+    this.socket.on('stock changed',(stockValue) => { callback(null, stockValue)})
   }
 }
