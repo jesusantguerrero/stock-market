@@ -57,7 +57,9 @@ export default class StockChart {
     }
   }
 
-  remove(data) {
-
+  update(series) {
+    this.series = series;
+    this.chart.destroy();
+    this.create();
   }
 }

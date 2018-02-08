@@ -6,11 +6,11 @@ export default class Socket {
     this.socket = io( url || 'http://localhost:5000/');
   }
 
-  stockChange(data) {
-    this.socket.emit('stock change', data);
+  stockChange(method, data) {
+    this.socket.emit('stock change',method, data);
   }
 
   onStockChange(callback) {
-    this.socket.on('stock changed',(stockValue) => { callback(null, stockValue)})
+    this.socket.on('stock changed', callback)
   }
 }

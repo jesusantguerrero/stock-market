@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 
   Stocks.model.find()
     .then((stockList) => {
-      res.json(stockList);
+      res.json(stockList.map((stock) => stock.name));
     })
 });
 
@@ -18,6 +18,7 @@ router.get('/:symbol_name', (req, res) => {
   const symbolName = req.params.symbol_name;
   stockApi.getInfo(symbolName)
     .then((response) => {
+      console.log(response.data)
       if (response.data) {
         Stocks.findOrCreate(symbolName)
           .then((stock) => {
@@ -46,6 +47,20 @@ router.get('/add/:symbol', (req, res) => {
   .catch((err) => {
     res.end();
   })
+})
+
+router.delete('/:symbol_name', (req, res) => {
+  Stocks.model.remove({ name: req.params.symbol_name })
+    .then((data) => {
+      if (data) {
+        res.end('deleted');
+      }
+      res.end();
+    })
+})
+
+router.get('/delete/all', (req, res) => {
+  Stocks.model.remove().then((deleted) => res.json(releted))
 })
 
 module.exports = router;

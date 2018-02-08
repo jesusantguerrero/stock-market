@@ -26,16 +26,16 @@ const server = http.createServer(app);
 */
 
 server.listen(port);
-// server.on('error', onError);
-// server.on('listening', onListening);
+server.on('error', onError);
+server.on('listening', onListening);
 
 // listen socket
 const io = socketIO.listen(server);
 io.sockets.on('connection', (client) => {
   console.log('client connected')
-  client.on('stock change', () => {
+  client.on('stock change', (method, data) => {
     console.log('stock changed');
-    client.emit('stock changed');
+    client.broadcast.emit('stock changed', method, data);
   })
 })
 

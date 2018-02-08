@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import TestResponse from './components/TestResponse';
 import ChartView from './components/ChartView';
 import StockListView from './components/StockListView';
 import StockAddForm from './components/StockAddForm';
 import Socket from './components/Socket';
 import './assets/css/App.css';
+import { setInterval, clearInterval } from 'timers';
+import { isNumber } from 'util';
 
 class App extends Component {
   constructor(props){
@@ -18,20 +19,15 @@ class App extends Component {
     };
   }
 
+  //  server related functions
+
   _addStock = (e) => {
     e.preventDefault();
     if (this.state.NewStockValue && !this.state.stocks.includes(this.state.NewStockValue)) {
-      axios.get(`/stocks/${this.state.NewStockValue}`)
-        .then((res) => {
-          if (!res.data.err) {
-            const series = this.state.series.slice();
-            const stocks = this.state.stocks.slice()
-            stocks.push(res.data.name);
-            series.push(res.data)
-            this.setState({ series: series });
-            this.setState({ stocks: stocks });
-            this.state.chart.add(res.data);
-            this.socket.stockChange(res.data);
+      this._getStock(this.state.NewStockValue)
+        .then((data) => {
+          if (!data.err) {
+            this.socket.stockChange('add', data);
           } else {
             alert('this symbol doesnt exists');
           }
@@ -41,24 +37,54 @@ class App extends Component {
   }
 
   _deleteStock = (e) => {
-    alert(e.target.id)
-    this.socket.stockChange();
+    const stockName = e.target.name;
+    axios.delete(`/stocks/${stockName}`)
+      .then((res) => {
+        if (res.data) {
+          this._removeSerie(stockName);
+          this.socket.stockChange('delete', stockName);
+        }
+      })
+    }
+    
+  _getStock = (name) => {
+    return axios.get(`/stocks/${name}`)
+      .then((res) => {
+        if (!res.data.err) {
+           this._addSerie(res.data)        
+        }
+        return res.data;
+      })
   }
 
   _getStocks = () => {
     axios.get('/stocks')
       .then((res) => {
-        // this.setState({ stocks: res.data.map(stock => stock.name)});
+        const stocks  = res.data || [];
+        let lastNumber = 0;
+        
+        const timer = setInterval(() => {
+          const seriesCount = this.state.series.length
+          if (seriesCount === stocks.length || seriesCount === lastNumber) {
+            clearInterval(timer)
+          } else {
+            lastNumber = seriesCount;
+            console.log('...cargando %s  - %s', this.state.stocks.length, stocks.length);
+            console.log('...count: %s  -  lastNumber: %s', seriesCount, lastNumber);
+          }
+        }, 2000);
+
+        stocks.sort().forEach((stock) => {
+          this._getStock(stock)
+        })
       })
   }
 
-  _stockChangeServer = (serie) => {
-    if (!this.state.stocks.includes(serie.name)) {
-      alert('remote update');
-      this.setState({ series: this.state.series.push(serie)});
-    }
+  _stockChangeServer = (method, serie) => {
+    return (method == 'delete') ? this._removeSerie(serie) : this._addSerie(serie);
   } 
   
+  //  local state functions
   _handleInputChange = (e) => {
     this.setState({ NewStockValue: e.target.value });
   }
@@ -66,10 +92,41 @@ class App extends Component {
   _getChart = (chart) => {
     this.setState({ chart: chart });
   }
+
+  _addSerie = (serie) => {
+    console.log('adding serie')
+    const series = this.state.series.slice();
+    const stocks = this.state.stocks.slice()
+    if (!stocks.includes(serie.name)) {
+      stocks.push(serie.name);
+      series.push(serie)
+      this.setState({ series: series });
+      this.setState({ stocks: stocks });
+      this.state.chart.add(serie); 
+    }
+  }
+
+  _removeSerie = (serieName) => {
+    console.log('removing series')
+    const series = this.state.series.slice();
+    const stocks = this.state.stocks.slice();
+    //  find  the index
+    const stockIndex = stocks.findIndex((name) => (name === serieName));
+    const serieIndex = stocks.findIndex((serie) => (serie.name === serieName));
+
+    stocks.splice(stockIndex, 1);
+    series.splice(serieIndex, 1)
+
+    this.setState({ series: series });
+    this.setState({ stocks: stocks });
+
+    this.state.chart.update(this.state.series); 
+  }
   
   componentDidMount() {
     this.socket = new Socket();
-    // this.socket.onStockChange(this._stockChangeServer);
+    this.socket.onStockChange(this._stockChangeServer);
+    this._getStocks();
   }
 
   render() {

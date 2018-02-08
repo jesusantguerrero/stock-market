@@ -12,12 +12,12 @@ export default class StockListView extends Component {
 
   ListItems() {
     console.log(this.props.stocks)
-    return this.props.stocks.map((item) => {
+    return this.props.stocks.map((item, index) => {
       return(
         <div className="stock-item" key={item}>
           <h1 className="stock-title"> {item} </h1>
           <p className="stock-description"> {item} Prices, Dividends, Splits and Trading Volume </p>
-          <button id={item} className="stock-btn-delete" onClick={this.props.onDelete}> x </button>
+          <button id={index} name={item} className="stock-btn-delete" onClick={this.props.onDelete}> x </button>
         </div>
       )
     })

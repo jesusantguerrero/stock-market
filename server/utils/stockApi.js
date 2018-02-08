@@ -21,8 +21,4 @@ module.exports = class StockApi {
       return [new Date(name).getTime(), parseFloat(data[name]['1. open'])]
     })
   }
-
-  toUnixTime(date) {
-    return new Date(date).getTime() / 1000
-  }
 }
