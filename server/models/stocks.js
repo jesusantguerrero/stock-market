@@ -10,7 +10,6 @@ class Stock {
   findOrCreate(stockName) {
     return this.model.findOne({ name: stockName })
       .then((stock) => {
-        console.log(stock)
         if (!stock) {
           return this.create(stockName);
         } 

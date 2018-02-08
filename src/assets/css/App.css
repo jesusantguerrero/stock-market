@@ -1,24 +1,81 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #0bbca2;
+  --text-title-color: white;
+  --text-body-color: #444;
+  --text-body-contrast: var(--primary-color)
 }
 
 .App {
   text-align: center;
   width: 100%;
-  padding: 0 20px;
   color: #444;
 }
-.header {
 
+.app-header {
+  background: var(--primary-color);
+  color: var(--text-title-color);
+  height: 60px;
+  margin-bottom: 50px;
+  display: flex;
+  padding: 0 50px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .4);
 }
 
-.App-title {
+.app-title {
   font-size: 1.5em;
+  width: 50%;
+  padding-top: 15px;
+  text-align: left;
 }
 
-.App-intro {
-  font-size: large;
+.app-title a {
+  cursor: pointer;
+  color: var(--text-title-color);
+  text-decoration: none;
 }
+
+.main-menu {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+  align-items: center;
+}
+
+.menu-btn {
+  list-style: none;
+  padding: 5px 10px;
+  width: 100px;
+  height: 38px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 25px;
+  font-weight: bolder;
+  transition: all ease-in .3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-btn:hover {
+  background: rgba(0, 0, 0, .2);
+}
+
+.menu-btn.remark {
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, .2);
+  background: white;
+  color: var(--primary-color);
+}
+.menu-btn.remark:hover {
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, .4);
+  transform: scale(1.01);
+}
+
 
 .app-main-section{ 
   width: 100%;

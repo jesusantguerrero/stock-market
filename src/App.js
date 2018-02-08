@@ -5,8 +5,6 @@ import StockListView from './components/StockListView';
 import StockAddForm from './components/StockAddForm';
 import Socket from './components/Socket';
 import './assets/css/App.css';
-import { setInterval, clearInterval } from 'timers';
-import { isNumber } from 'util';
 
 class App extends Component {
   constructor(props){
@@ -45,7 +43,7 @@ class App extends Component {
           this.socket.stockChange('delete', stockName);
         }
       })
-    }
+  }
     
   _getStock = (name) => {
     return axios.get(`/stocks/${name}`)
@@ -69,8 +67,6 @@ class App extends Component {
             clearInterval(timer)
           } else {
             lastNumber = seriesCount;
-            console.log('...cargando %s  - %s', this.state.stocks.length, stocks.length);
-            console.log('...count: %s  -  lastNumber: %s', seriesCount, lastNumber);
           }
         }, 2000);
 
@@ -81,7 +77,7 @@ class App extends Component {
   }
 
   _stockChangeServer = (method, serie) => {
-    return (method == 'delete') ? this._removeSerie(serie) : this._addSerie(serie);
+    return (method === 'delete') ? this._removeSerie(serie) : this._addSerie(serie);
   } 
   
   //  local state functions
@@ -94,7 +90,6 @@ class App extends Component {
   }
 
   _addSerie = (serie) => {
-    console.log('adding serie')
     const series = this.state.series.slice();
     const stocks = this.state.stocks.slice()
     if (!stocks.includes(serie.name)) {
@@ -107,7 +102,6 @@ class App extends Component {
   }
 
   _removeSerie = (serieName) => {
-    console.log('removing series')
     const series = this.state.series.slice();
     const stocks = this.state.stocks.slice();
     //  find  the index
@@ -123,6 +117,7 @@ class App extends Component {
     this.state.chart.update(this.state.series); 
   }
   
+  // lifecycle
   componentDidMount() {
     this.socket = new Socket();
     this.socket.onStockChange(this._stockChangeServer);
@@ -132,8 +127,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
-          <h1> Stock Market </h1>
+        <header className="app-header">
+          <h1 className="app-title"> 
+            <a href="/"> Stock Market </a>
+          </h1>
+          <menu className="main-menu">
+            <li className="menu-btn">GitHub</li>
+            <li className="menu-btn remark">About</li>
+          </menu>
         </header>
         <section className="app-main-section">
           <div className="app-left-container">
@@ -147,6 +148,8 @@ class App extends Component {
       </div>
     );
   }
+
+  // animations ux
 }
 
 export default App;

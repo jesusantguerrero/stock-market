@@ -50,11 +50,7 @@ export default class StockChart {
   }
 
   add(serie) {
-    try {
-      this.chart.addSeries(serie);
-    } catch(e) {
-      console.log(e)
-    }
+    this.chart.addSeries(serie);
   }
 
   update(series) {

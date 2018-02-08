@@ -11,7 +11,6 @@ export default class StockListView extends Component {
   }
 
   ListItems() {
-    console.log(this.props.stocks)
     return this.props.stocks.map((item, index) => {
       return(
         <div className="stock-item" key={item}>

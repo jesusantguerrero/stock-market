@@ -18,7 +18,6 @@ router.get('/:symbol_name', (req, res) => {
   const symbolName = req.params.symbol_name;
   stockApi.getInfo(symbolName)
     .then((response) => {
-      console.log(response.data)
       if (response.data) {
         Stocks.findOrCreate(symbolName)
           .then((stock) => {
