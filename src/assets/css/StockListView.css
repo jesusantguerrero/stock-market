@@ -1,24 +1,25 @@
 .stock-list-view {
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 20px;
+  padding: 0 20px;
   margin-top: 20px;
 }
 
 .stock-item {
-  padding: 2px 5%;
+  padding: 5px 5%;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, .4);
   cursor: pointer; 
   position: relative;
   width: 100%;
-  margin: 5px 0;
+  margin: 10px 0
 }
 
 
 .stock-title {
-  color: #444;
+  color: var(--primary-color);
+  margin: 10px;
 }
 
 .stock-btn-delete {

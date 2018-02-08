@@ -6,6 +6,7 @@
 
 :root {
   --primary-color: #0bbca2;
+  --dark-color: #0bbca2;
   --text-title-color: white;
   --text-body-color: #444;
   --text-body-contrast: var(--primary-color)
@@ -21,7 +22,6 @@
   background: var(--primary-color);
   color: var(--text-title-color);
   height: 60px;
-  margin-bottom: 50px;
   display: flex;
   padding: 0 50px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, .4);
@@ -80,6 +80,14 @@
 .app-main-section{ 
   width: 100%;
   display: flex;
+  padding: 0 50px;
+  margin-top: 50px;
+}
+
+.app-section-title {
+  color: var(--dark-color);
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .app-left-container {
@@ -91,4 +99,49 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  
+  .app-main-section{ 
+    width: 100%;
+    flex-direction: column;
+    padding: 0 5px
+  }
+  
+  .app-left-container {
+    width: 100%;
+  }
+  
+  .app-right-container {
+    width: 100%;
+  }
+
+  .app-section-title {
+    text-align: center;
+  }
+
+  /* app header */
+  .app-header {
+    padding: 0 5px;
+  }
+
+  .app-title {
+    font-size: 1.5em;
+    width: 30%;
+    padding-top: 15px;
+    text-align: left;
+  }
+  
+  .app-title a {
+    display: none
+  }
+  
+  .main-menu {
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+    align-items: center;
+  }
+  
 }

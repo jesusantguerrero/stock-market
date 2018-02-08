@@ -1,0 +1,32 @@
+.stock-add-form {
+  width: 100%;
+  padding: 0 20px;
+  margin-top: 10px;
+  height: 35px;
+  display: flex;
+}
+
+input {
+  height: 100%;
+}
+
+.input-add {
+  width: 70%;
+  padding: 0 5px;
+}
+
+.btn-add {
+  width: 30%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all ease-in .3s;
+  background: var(--primary-color);
+}
+
+.btn-add:hover {
+  width: 40%;
+  background: white;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
