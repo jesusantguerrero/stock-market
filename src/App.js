@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import About from './components/About';
 import ChartView from './components/ChartView';
 import Loader from './components/Loader';
 import StockListView from './components/StockListView';
@@ -14,7 +15,8 @@ class App extends Component {
       series: [],
       stocks: [],
       NewStockValue: '',
-      chart: null
+      chart: null,
+      showAbout: false
     };
   }
 
@@ -127,6 +129,11 @@ class App extends Component {
 
     this.state.chart.update(this.state.series); 
   }
+
+  _changeShowAbout = (e) => {
+    e.preventDefault();
+    this.setState({ showAbout: !this.state.showAbout });
+  }
   
   // lifecycle
   componentDidMount() {
@@ -141,13 +148,18 @@ class App extends Component {
         <header className="app-header">
           <h1 className="app-title"> 
             <a href="/"> Stock Market </a>
+            <a className="phone-title" href="/"> SM </a>
           </h1>
           <menu className="main-menu">
-            <li className="menu-btn">GitHub</li>
-            <li className="menu-btn remark">About</li>
+            <li><a className="menu-btn" href="https://github.com/jesusantguerrero/stock-market">GitHub</a></li>
+            <li><a className="menu-btn remark" href="#" onClick={this._changeShowAbout}> About</a></li>
           </menu>
         </header>
+
         <Loader/>
+
+        { this.state.showAbout && (<About/>) }
+
         <section className="app-main-section">
           <div className="app-left-container">
             <h1 className="app-section-title"> Stocks </h1>

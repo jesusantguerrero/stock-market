@@ -40,23 +40,31 @@
   text-decoration: none;
 }
 
+.phone-title {
+  display: none;
+}
+
 .main-menu {
   display: flex;
   justify-content: flex-end;
   width: 50%;
   align-items: center;
 }
+.main-menu li {
+  list-style: none;
+
+}
 
 .menu-btn {
-  list-style: none;
   padding: 5px 10px;
   width: 100px;
   height: 38px;
   margin: 0 5px;
-  cursor: pointer;
   border-radius: 25px;
   font-weight: bolder;
   transition: all ease-in .3s;
+  text-decoration: none;
+  color: var(--text-title-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,6 +143,10 @@
   
   .app-title a {
     display: none
+  }
+
+  .phone-title {
+    display: inline;
   }
   
   .main-menu {
