@@ -1,7 +1,7 @@
 import React from 'react';
 import './../assets/css/About.css';
 
-export default () => {
+const About = () => {
   return(
     <div className="about">
       <header>
@@ -11,13 +11,16 @@ export default () => {
         <h3> Technologies and API's </h3>
         <ul className="technologies">
           <li>
-            <a href="#"> Highcharts</a>
+            <a href="https://www.highcharts.com/"> Highcharts</a>
           </li>
           <li>
-            <a href="#"> Alphadvange</a>
+            <a href="https://www.alphavantage.co/"> Alphavange</a>
           </li>
           <li>
             <a href="#"> React</a>
+          </li>
+          <li>
+            <a href="#"> socket.io</a>
           </li>
           <li>
             <a href="#"> Express</a>
@@ -31,3 +34,5 @@ export default () => {
     </div>
   )
 }
+
+export default About

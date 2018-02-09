@@ -1,0 +1,98 @@
+
+.app-header {
+  background: var(--primary-color);
+  color: var(--text-title-color);
+  height: 60px;
+  display: flex;
+  padding: 0 50px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .4);
+}
+
+.app-title {
+  font-size: 1.5em;
+  width: 50%;
+  padding-top: 15px;
+  text-align: left;
+}
+
+.app-title a {
+  cursor: pointer;
+  color: var(--text-title-color);
+  text-decoration: none;
+}
+
+.phone-title {
+  display: none;
+}
+
+.main-menu {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+  align-items: center;
+}
+.main-menu li {
+  list-style: none;
+
+}
+
+.menu-btn {
+  padding: 5px 10px;
+  width: 100px;
+  height: 38px;
+  margin: 0 5px;
+  border-radius: 25px;
+  font-weight: bolder;
+  transition: all ease-in .3s;
+  text-decoration: none;
+  color: var(--text-title-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-btn:hover {
+  background: rgba(0, 0, 0, .2);
+}
+
+.menu-btn.remark {
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, .2);
+  background: white;
+  color: var(--primary-color);
+}
+.menu-btn.remark:hover {
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, .4);
+  transform: scale(1.01);
+}
+
+
+@media (max-width: 768px) {
+  
+  /* app header */
+  .app-header {
+    padding: 0 5px;
+  }
+
+  .app-title {
+    font-size: 1.5em;
+    width: 30%;
+    padding-top: 15px;
+    text-align: left;
+  }
+  
+  .app-title a {
+    display: none
+  }
+
+  a.phone-title {
+    display: block;
+  }
+  
+  .main-menu {
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+    align-items: center;
+  }
+  
+}

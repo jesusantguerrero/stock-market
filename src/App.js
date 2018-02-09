@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import About from './components/About';
+import AppHeader from './components/AppHeader';
 import ChartView from './components/ChartView';
 import Loader from './components/Loader';
 import StockListView from './components/StockListView';
@@ -19,6 +20,30 @@ class App extends Component {
       showAbout: false
     };
   }
+
+  render() {
+    return (
+      <div className="App">
+        <AppHeader action={this._changeShowAbout}/>
+        <Loader/>
+
+        { this.state.showAbout && (<About/>) }
+
+        <section className="app-main-section">
+          <div className="app-left-container">
+            <h1 className="app-section-title"> Stocks </h1>
+            <ChartView series={this.state.series} id="chart-container" getChart={this._getChart}/>
+          </div>
+          <div className="app-right-container">
+            <h1 className="app-section-title"> Control Panel</h1>
+            <StockAddForm onClick={this._addStock} onChange={this._handleInputChange} value={this.state.NewStockValue}/>
+            <StockListView stocks={this.state.stocks} onDelete={this._deleteStock}/>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
 
   //  server related functions
 
@@ -71,15 +96,12 @@ class App extends Component {
     axios.get('/stocks')
       .then((res) => {
         const stocks  = res.data || [];
-        let lastNumber = 0;
         
         const timer = setInterval(() => {
           const seriesCount = this.state.series.length
           if (seriesCount === stocks.length) {
             clearInterval(timer)
             this.hideLoader();
-          } else {
-            lastNumber = seriesCount;
           }
         }, 2000);
 
@@ -140,39 +162,6 @@ class App extends Component {
     this.socket = new Socket();
     this.socket.onStockChange(this._stockChangeServer);
     this._getStocks();
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <header className="app-header">
-          <h1 className="app-title"> 
-            <a href="/"> Stock Market </a>
-            <a className="phone-title" href="/"> SM </a>
-          </h1>
-          <menu className="main-menu">
-            <li><a className="menu-btn" href="https://github.com/jesusantguerrero/stock-market">GitHub</a></li>
-            <li><a className="menu-btn remark" href="#" onClick={this._changeShowAbout}> About</a></li>
-          </menu>
-        </header>
-
-        <Loader/>
-
-        { this.state.showAbout && (<About/>) }
-
-        <section className="app-main-section">
-          <div className="app-left-container">
-            <h1 className="app-section-title"> Stocks </h1>
-            <ChartView series={this.state.series} id="chart-container" getChart={this._getChart}/>
-          </div>
-          <div className="app-right-container">
-            <h1 className="app-section-title"> Control Panel</h1>
-            <StockAddForm onClick={this._addStock} onChange={this._handleInputChange} value={this.state.NewStockValue}/>
-            <StockListView stocks={this.state.stocks} onDelete={this._deleteStock}/>
-          </div>
-        </section>
-      </div>
-    );
   }
 
   // animations ux
