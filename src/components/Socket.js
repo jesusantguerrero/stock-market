@@ -2,8 +2,10 @@ import io from 'socket.io-client';
 
 
 export default class Socket {
-  constructor(url) {
-    this.socket = io( url || 'http://localhost:5000/');
+  constructor() {
+    const origin = window.location.origin;
+    const url =  (origin.includes('localhost')) ? 'http://localhost:5000/' : origin
+    this.socket = io(url);
   }
 
   stockChange(method, data) {
