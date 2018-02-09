@@ -64,8 +64,7 @@
 @media (max-width: 768px) {
   .about {
     width: 90%;
-    margin-right: 5%; 
-    margin-left: 5%;
+    left: 5%
   }
 
   .about li{

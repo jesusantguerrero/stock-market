@@ -145,8 +145,8 @@
     display: none
   }
 
-  .phone-title {
-    display: inline;
+  a.phone-title {
+    display: block;
   }
   
   .main-menu {

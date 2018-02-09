@@ -10,7 +10,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "serve": "node_modules/.bin/serve -s build",
-    "heroku-postinstall": "npm run build",
+    "postinstall": "npm run build",
     "heroku": "git push heroku master && heroku scale web=1 && heroku open && heroku logs --tail"
   },
   "dependencies": {
