@@ -48,7 +48,7 @@ mongo --version
 ```
 #### Cloning the repo
 
-1. Open a Terminal / Command Line / Bash Shell in your projects directory 
+1. Open a Terminal in your projects directory 
 2. Clone this repo
 
 ```shell
