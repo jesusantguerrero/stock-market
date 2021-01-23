@@ -10,7 +10,9 @@ router.get('/', (req, res, next) => {
 
   Stocks.model.find()
     .then((stockList) => {
-      res.json(stockList.map((stock) => stock.name));
+      res.json(stockList.filter(stock => stock.name).map((stock) => stock.name));
+    }).catch((e) => {
+      console.log(e)
     })
 });
 
