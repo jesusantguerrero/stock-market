@@ -1,7 +1,9 @@
 
 if (process.env.NODE_ENV !== 'production') {
-require('dotenv').config();
+  require('dotenv').config();
 }
+
+console.log(process.env.DB_STRING_CONNECTION, "DB")
   
 const express = require('express');
 const path = require('path');
