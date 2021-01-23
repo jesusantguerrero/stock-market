@@ -14,13 +14,13 @@
     "heroku": "git push heroku master && heroku scale web=1 && heroku open && heroku logs --tail"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "~4.15.5",
+    "express": "^4.17.1",
     "highcharts": "^6.0.5",
-    "mongoose": "^5.0.3",
+    "mongoose": "^5.11.13",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
     "react": "^16.2.0",
@@ -31,7 +31,8 @@
     "socket.io-client": "2.0.4"
   },
   "devDependencies": {
-    "dotenv": "^5.0.0"
+    "dotenv": "^5.0.0",
+    "nodemon": "^2.0.7"
   },
   "proxy": "http://localhost:5000/"
 }

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DB_STRING_CONNECTION)
+mongoose.connect(process.env.DB_STRING_CONNECTION, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;

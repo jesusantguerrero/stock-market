@@ -7,7 +7,7 @@ module.exports = class StockApi {
   }
 
   getInfo(symbol) {
-    return axios.get(`${this.endpoint}&symbol=${symbol}&interval=1min&apikey=${ process.env.ALPHA_API_KEY}`)
+    return axios.get(`${this.endpoint}&symbol=${symbol}&interval=1min&apikey=${process.env.ALPHA_API_KEY}`)
   }
 
   dataKey() {
@@ -16,9 +16,11 @@ module.exports = class StockApi {
 
   parseOne(serie) {
     const data = serie[this.dataKey()];
-    const names = Object.keys(data);
-    return names.map((name) => {
-      return [new Date(name).getTime(), parseFloat(data[name]['1. open'])]
-    })
+    if (data) {
+      const names = Object.keys(data);
+      return names.map((name) => {
+        return [new Date(name).getTime(), parseFloat(data[name]['1. open'])]
+      })
+    }
   }
 }

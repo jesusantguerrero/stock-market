@@ -49,7 +49,7 @@ router.get('/add/:symbol', (req, res) => {
 })
 
 router.delete('/:symbol_name', (req, res) => {
-  Stocks.model.remove({ name: req.params.symbol_name })
+  Stocks.model.deleteOne({ name: req.params.symbol_name })
     .then((data) => {
       if (data) {
         res.end('deleted');
@@ -59,7 +59,7 @@ router.delete('/:symbol_name', (req, res) => {
 })
 
 router.get('/delete/all', (req, res) => {
-  Stocks.model.remove().then((deleted) => res.json(releted))
+  Stocks.model.deleteMany().then((deleted) => res.json(releted))
 })
 
 module.exports = router;
